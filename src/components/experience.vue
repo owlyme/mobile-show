@@ -2,7 +2,8 @@
     <section class="page" >
         <header class="header">
             <transition  name="slidedown-fade"  tag="div" 
-            v-on:after-enter="stepNext" appear>
+            v-on:after-enter="stepNext"
+             appear>
                 <h2>
                     <transition  name="slideleft-fade" tag="span" 
                     v-on:after-enter="stepNext" appear v-if="_step[0]">
@@ -15,27 +16,30 @@
                     </transition>
                 </h2> 
             </transition>
-        </header>        
-        <div class="companies">
-            <div class="row" v-for="(item, index) in experience" :key="'experience'+index">
-                <div class="company">公司名称:{{item.company}}</div>
-                <div class="period">工作时间:{{item.period}}</div>
-                <div class="content" v-on:click="setPopupData(item)">
-                    <a href="#"> >>>详情介绍 </a>
+        </header>  
+        <transition v-on:after-enter="stepNext" appear name="fade">      
+            <div class="companies"  v-if="_step[1]">
+                <div class="row" v-for="(item, index) in experience" :key="'experience'+index">
+                    <div class="company">公司名称:{{item.company}}</div>
+                    <div class="period">工作时间:{{item.period}}</div>
+                    <div class="content" v-on:click="setPopupData(item)">
+                        <a href="#"> >>>详情介绍 </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="project">
-            <div class="card" v-for="(item, index) in projects" :key="'project'+index">
-                <a :href="item.link">
-                    <div class="icon"><img :src="item.icon" /></div>
-                    <div class="name">                        
-                        {{item.name}}                        
-                    </div>
-                    <img src="../../static/header-bg1.png">
-                </a>
+        </transition>
+        <transition  appear name="fade"> 
+            <div class="project" v-if="_step[2]">
+                <div class="card" v-for="(item, index) in projects" :key="'project'+index">
+                    <a :href="item.link">
+                        <div class="icon"><img :src="item.icon" /></div>
+                        <div class="name">                        
+                            {{item.name}}                        
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
+        </transition> 
     </section>
 </template>
 
@@ -43,9 +47,6 @@
 
 export default {
   name: 'page',
-  components: {
-      
-  },
   data () {       
     return {
       step: [],

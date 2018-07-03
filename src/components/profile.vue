@@ -15,17 +15,12 @@
                     </transition>
                 </h2> 
             </transition>
-        </header>        
-        <div class="profile">
-            <transition-group  name="bounceUp" tag="p" appear v-if="_step[1]"
-            v-on:after-enter="stepNext">
-                <span v-for="(word,index) in _wordsList" :key="'word'+index">
-                    {{word}}
-                </span>
-            </transition-group>
-        </div>
+        </header>
+
         <div class="skill">
-            <transition-group  name="rotateUpLeft" tag="div" appear v-if="_step[2]" > 
+            <h2 v-if="_step[1]">技能特长</h2>
+            <transition-group   name="slideDown" tag="div" appear 
+            v-if="_step[1]" v-on:after-enter="stepNext"> 
                 <div class="row" v-for="(skill, index) in skills" :key="'skill'+index">
                     <div class="span2 type">{{skill.type}}</div>
                     <div class="span6 level">
@@ -34,7 +29,16 @@
                     <div class="span2 evaluate">{{skill.evaluate}}</div>
                 </div>
             </transition-group>            
+        </div>      
+        <div class="profile">
+            <transition-group  name="bounceUp" tag="p" appear v-if="_step[1]"
+            v-on:after-enter="stepNext">
+                <span v-for="(word,index) in _wordsList" :key="'word'+index">
+                    {{word}}
+                </span>
+            </transition-group>
         </div>
+        
     </section>
 </template>
 
@@ -69,12 +73,7 @@ export default {
           },
           {
             type: 'NODE',
-            level: '50%',
-            evaluate: "熟悉"
-          },
-          {
-            type: 'NODE',
-            level: '50%',
+            level: '60%',
             evaluate: "熟悉"
           },
           {
